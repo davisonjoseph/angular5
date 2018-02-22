@@ -8,8 +8,20 @@ export class UserService {
   private baseUrl:string = this.config.baseUrl;
   constructor(private http: HttpClient) { }
 
-  getUsers(){
-    return this.http.get(this.baseUrl + "getusers");
+  get(){
+    return this.http.get(this.baseUrl + "users/get");
+  }
+
+  create(data){
+    return this.http.post(this.baseUrl + "users/create",data);
+  }
+
+  update(data, condition){
+    return this.http.put(this.baseUrl + "users/update",{data:data,id:condition});
+  }
+
+  delete(data){
+    return this.http.delete(this.baseUrl + "users/delete/"+data._id);
   }
 
 }

@@ -1,9 +1,9 @@
 {
   "dependencies": {
+    "bson": "^1.0.4",
     "cors": "^2.8.4",
     "express": "4.16.2",
     "fs": "0.0.1-security",
-    "mongodb": "3.0.2",
-    "path": "0.12.7"
+    "mongodb": "3.0.2"
   }
 }

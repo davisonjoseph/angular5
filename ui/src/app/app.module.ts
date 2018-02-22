@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routing } from '../app/route/route.module';
 import { AuthService } from './services/auth.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -12,21 +13,23 @@ import { ProductsComponent } from './products/products.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user.service';
 import { UsersModule } from './users/users.module';
+import { NavModule } from './shared/nav/nav.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NavComponent,
     ProductsComponent
   ],
   imports: [
     BrowserModule,
     Routing,
-    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    UsersModule
+    UsersModule,
+    NavModule,
+    NgbModule,
+    NgbModule.forRoot()
   ],
   providers: [
     UserService

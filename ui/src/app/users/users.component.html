@@ -1,4 +1,24 @@
 <div>
-<p>Users</p>
-<data-grid [users]="users" [colNames]="colNames" [colFields]="colFields" (edit)="edit($event)" (delete)="delete($event)"></data-grid>
+<h2>Users</h2>
+<button class="new-button" (click)="addUser(content)">+ New </button>
+<data-grid [users]="users" [colNames]="colNames" [colFields]="colFields" (edit)="edit($event, content)" (delete)="delete($event)"></data-grid>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h3 class="modal-title">Add User</h3>
+    </div>
+    <div class="modal-body">
+        <form #addUserForm="ngForm" >
+            <div class="form-group">
+                <div class="col-sm-10">
+                <input type="text" class="form-control" [ngModel]="model.name" id="archiveOrigin" name="name" placeholder="Name"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="c(addUserForm)">Save</button>
+        <button type="button" class="btn btn-default" (click)="d()">Cancel</button>
+    </div>
+    </ng-template>
