@@ -13,7 +13,6 @@ export class UsersComponent implements OnInit {
   colNames:Array<string>;
   colFields:Array<string>;
   closeResult: any;
-  user:any;
   model:any;
   modalref;
   editMode:boolean;
