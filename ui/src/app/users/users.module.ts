@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users.component';
 import { DatagridModule } from '../shared/datagrid/datagrid.module';
 import { FormsModule }   from '@angular/forms';
+import { EmailValidator } from './../directives/email.directive'
 
 @NgModule({
   imports: [
@@ -10,6 +11,6 @@ import { FormsModule }   from '@angular/forms';
     DatagridModule,
     FormsModule
   ],
-  declarations: [UsersComponent]
+  declarations: [UsersComponent, EmailValidator]
 })
 export class UsersModule { }

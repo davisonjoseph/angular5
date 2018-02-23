@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-users',
@@ -15,6 +15,9 @@ export class UsersComponent implements OnInit {
   closeResult: any;
   user:any;
   model:any;
+  modalref;
+  editMode:boolean;
+  id:any;
 
   constructor(private userService : UserService,
     private modalService: NgbModal) { }
@@ -33,21 +36,10 @@ export class UsersComponent implements OnInit {
   }
 
   edit(event, content){
-    console.log(event);
     this.model = event;
-    this.modalService.open(content).result.then((result) => {
-      console.log(result);
-      this.userService.update(result.value, event._id).subscribe(res => {
-        console.log(res);
-        this.getusers();
-      },
-      err => {
-        console.log("Error occured");
-      })
-      
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.editMode = true;
+    this.id = event._id;
+    this.modalref = this.modalService.open(content);
   }
 
   delete(event){
@@ -60,34 +52,38 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  createUser(form){
-    this.userService.create(form.value).subscribe(res => {
-      console.log(res);
-      this.getusers();
-    },
-    err => {
-      console.log("Error occured");
-    })
+  submitUser(form){
+    if(form.invalid){
+      alert("Invalid Email!");
+      return;
+    }
+    if(this.editMode){
+      this.userService.update(form.value, this.id).subscribe(res => {
+        this.modalref.close();
+        this.getusers();
+      },
+      err => {
+        console.log("Error occured");
+      })
+    }else{
+      this.userService.create(form.value).subscribe(res => {
+        this.modalref.close();
+        this.getusers();
+      },
+      err => {
+        console.log("Error occured");
+      })
+    } 
+  }
+
+  cancel(){
+    this.modalref.dismiss();
   }
 
   addUser(content){
     this.model = {};
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      this.createUser(result)
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
+    this.editMode = false;
+    this.modalref = this.modalService.open(content);
   }
 
 }
