@@ -2,17 +2,22 @@
     <thead>
       <tr>
         <th *ngFor="let colName of colNames">{{colName}}</th>
+        <th *ngIf="config.delete || config.edit">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let item of items">
           <td *ngFor="let colField of colFields">
-            <span>{{user[colField]}}</span>
-            <span *ngIf="colField=='controls'">
-              <button (click)="editUser(user)">Edit</button>
-              <button (click)="deleteUser(user)">Delete</button>
-            </span>
+            <span>{{item[colField]}}</span>
+          </td>
+          <td *ngIf="config.delete || config.edit">
+            <ng-container *ngTemplateOutlet="actionColTemplate; context:{item:item, config:config}"></ng-container>
           </td>
       </tr>
     </tbody>
-</table>`
+</table>
+
+<ng-template #actionColTemplate let-item="item" let-config="config">
+  <button *ngIf="config.edit" (click)="editUser(item)">Edit</button>
+  <button *ngIf="config.delete" (click)="deleteUser(item)">Delete</button>
+</ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, ViewChild, ContentChild } from '@angular/core';
 
 @Component({
   selector: 'data-grid',
@@ -6,7 +6,11 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
   styleUrls: ['./datagrid.component.css']
 })
 export class DatagridComponent implements OnInit {
-  @Input() users:any;
+  templ;
+
+  @Input() items:any;
+  @Input() field:any;
+  @Input() config:any;
   @Input() colFields:Array<string>;
   @Input() colNames:Array<string>;
 
@@ -16,15 +20,15 @@ export class DatagridComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.users);
+    
   }
 
-  editUser(user:any){
-    this.edit.emit(user);
+  editUser(item:any){
+    this.edit.emit(item);
   }
   
-  deleteUser(user){
-    this.delete.emit(user);
+  deleteUser(item){
+    this.delete.emit(item);
   }
 
 }

@@ -1,7 +1,8 @@
 <div>
 <h2>Users</h2>
 <button class="new-button" (click)="addUser(content)">+ New </button>
-<data-grid [users]="users" [colNames]="colNames" [colFields]="colFields" (edit)="edit($event, content)" (delete)="delete($event)"></data-grid>
+<data-grid [items]="users" [colNames]="colNames" [colFields]="colFields" [config]="config" (edit)="edit($event, content)" (delete)="delete($event)">
+</data-grid>
 </div>
 
 <ng-template #content let-c="close" let-d="dismiss">

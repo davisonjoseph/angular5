@@ -17,11 +17,14 @@ export class UsersComponent implements OnInit {
   modalref;
   editMode:boolean;
   id:any;
+  config;
 
   constructor(private userService : UserService,
     private modalService: NgbModal) { }
 
   ngOnInit() {
+    //this.AppComponent.alertme();
+    this.config = {"delete":true, "edit":false};
     this.getusers();
   }
 
@@ -29,8 +32,8 @@ export class UsersComponent implements OnInit {
     this.userService.get()
       .subscribe(data => {
         this.users = data;
-        this.colFields = ["_id","name","controls"];
-        this.colNames = ["id","name","Actions"];
+        this.colFields = ["_id","name"];
+        this.colNames = ["id","name"];
       })
   }
 
